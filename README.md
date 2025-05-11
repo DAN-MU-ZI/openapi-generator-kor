@@ -91,7 +91,7 @@ OpenAPI 2.0과 3.0 모두 지원하며, 다양한 언어와 프레임워크를 �
   - [6.2 - 기술 위원회](#62---기술-위원회)
     - [위원회 멤버](#위원회-멤버)
   - [6.3 - 프로젝트 연혁](#63---프로젝트-연혁)
-    - [창립 멤버](#창립-멤버)
+    - [창립 멤버(알파벳순)](#창립-멤버알파벳순)
 - [7 - 라이선스](#7---라이선스)
 
 ## Sponsors
@@ -292,11 +292,13 @@ export PATH=${JAVA_HOME}/bin:$PATH
 <!-- /RELEASE_VERSION -->
 ### Launcher Script
 
-One downside to manual jar downloads is that you don't keep up-to-date with the latest released version. We have a Bash launcher script at [bin/utils/openapi-generator.cli.sh](./bin/utils/openapi-generator-cli.sh) which resolves this issue.
+수동으로 JAR 파일을 다운로드하면 최신 릴리즈 버전으로 자동 업데이트되지 않는 단점이 있습니다.
+이 문제를 해결하기 위해 [bin/utils/openapi-generator.cli.sh](./bin/utils/openapi-generator-cli.sh) 위치에 Bash 런처 스크립트가 제공됩니다.
 
-To install the launcher script, copy the contents of the script to a location on your path and make the script executable.
+런처 스크립트 설치 방법:
+스크립트 내용을 PATH에 포함된 디렉터리에 복사하고 실행 권한을 부여하세요.
 
-An example of setting this up (NOTE: Always evaluate scripts curled from external systems before executing them).
+설치 예시 (※ 외부에서 curl로 받은 스크립트는 반드시 내용을 확인 후 실행하세요):
 
 ```
 mkdir -p ~/bin/openapitools
@@ -305,87 +307,85 @@ chmod u+x ~/bin/openapitools/openapi-generator-cli
 export PATH=$PATH:~/bin/openapitools/
 ```
 
-Now, `openapi-generator-cli` is "installed". On invocation, it will query the GitHub repository for the most recently released version. If this matches the last downloaded jar,
-it will execute as normal. If a newer version is found, the script will download the latest release and execute it.
+이제 `openapi-generator-cli`가 "설치"되었습니다. 실행 시, GitHub 저장소에서 최신 릴리즈 버전을 확인합니다. 마지막으로 다운로드한 jar와 버전이 같으면 정상적으로 실행되고, 더 최신 버전이 있으면 스크립트가 최신 릴리즈를 다운로드하여 실행합니다.
 
-If you need to invoke an older version of the generator, you can define the variable `OPENAPI_GENERATOR_VERSION` either ad hoc or globally. You can export this variable if you'd like to persist a specific release version.
+이전 버전의 generator를 사용해야 한다면, `OPENAPI_GENERATOR_VERSION` 변수를 일시적으로 또는 전역으로 지정할 수 있습니다. 특정 릴리즈 버전을 계속 사용하고 싶다면 이 변수를 export 하세요.
 
-Examples:
+예시:
 
 ```
-# Execute latest released openapi-generator-cli
+# 최신 릴리즈된 openapi-generator-cli 실행
 openapi-generator-cli version
 
-# Execute version 4.1.0 for the current invocation, regardless of the latest released version
+# 최신 버전과 상관없이, 현재 실행에서 4.1.0 버전 사용
 OPENAPI_GENERATOR_VERSION=4.1.0 openapi-generator-cli version
 
-# Execute version 4.1.0-SNAPSHOT for the current invocation
+# 현재 실행에서 4.1.0-SNAPSHOT 버전 사용
 OPENAPI_GENERATOR_VERSION=4.1.0-SNAPSHOT openapi-generator-cli version
 
-# Execute version 4.0.2 for every invocation in the current shell session
+# 현재 셸 세션에서 모든 실행에 4.0.2 버전 사용
 export OPENAPI_GENERATOR_VERSION=4.0.2
-openapi-generator-cli version # is 4.0.2
-openapi-generator-cli version # is also 4.0.2
+openapi-generator-cli version # 4.0.2가 실행됨
+openapi-generator-cli version # 역시 4.0.2가 실행됨
 
-# To "install" a specific version, set the variable in .bashrc/.bash_profile
+# 특정 버전을 "설치"하려면, .bashrc/.bash_profile에 변수를 설정하세요
 echo "export OPENAPI_GENERATOR_VERSION=4.0.2" >> ~/.bashrc
 source ~/.bashrc
-openapi-generator-cli version # is always 4.0.2, unless any of the above overrides are done ad hoc
+openapi-generator-cli version # 위에서 일시적으로 오버라이드하지 않는 한 항상 4.0.2가 실행됨
 ```
 
 ### [1.4 - Build Projects](#table-of-contents)
 
-To build from source, you need the following installed and available in your `$PATH:`
+소스에서 빌드하려면, 아래 항목들이 `$PATH`에 설치되어 있어야 합니다:
 
 * [Java 11](https://adoptium.net/)
+* [Apache Maven 3.8.8 이상](https://maven.apache.org/) (선택 사항)
 
-* [Apache Maven 3.8.8 or greater](https://maven.apache.org/) (optional)
-
-After cloning the project, you can build it from source using [maven wrapper](https://maven.apache.org/wrapper/):
+프로젝트를 클론한 후, [maven wrapper](https://maven.apache.org/wrapper/)를 사용해 소스에서 빌드할 수 있습니다:
 
 - Linux: `./mvnw clean install`
 - Windows: `mvnw.cmd clean install`
 
-#### Nix users
+#### Nix 사용자
 
-If you're a nix user, you can enter OpenAPI Generator shell, by typing:
+Nix 사용자는 아래 명령어로 OpenAPI Generator 셸에 진입할 수 있습니다:
 ```sh
 nix develop
 ```
-It will enter a shell with Java 11 installed.
+이 명령어를 실행하면 Java 11이 설치된 셸로 진입합니다.
 
-Direnv supports automatically loading of the nix developer shell, so if you're using direnv too, type:
+direnv를 사용하면 nix 개발 셸을 자동으로 로딩할 수 있습니다. direnv를 사용한다면 아래 명령어를 입력하세요:
 ```sh
 direnv allow
 ```
-and have `java` and `mvn` set up with correct versions each time you enter project directory.
+프로젝트 디렉터리에 진입할 때마다 `java`와 `mvn`이 올바른 버전으로 설정됩니다.
 
-The default build contains minimal static analysis (via CheckStyle). To run your build with PMD and Spotbugs, use the `static-analysis` profile:
+기본 빌드는 최소한의 정적 분석(CheckStyle)을 포함합니다. PMD와 Spotbugs를 사용하려면 `static-analysis` 프로필을 사용하세요:
 
 - Linux: `./mvnw -Pstatic-analysis clean install`
 - Windows: `mvnw.cmd -Pstatic-analysis clean install`
 
 ### [1.5 - Homebrew (macOS 패키지 매니저)](#table-of-contents)
 
-To install, run `brew install openapi-generator`
+설치하려면 `brew install openapi-generator`를 실행하세요.
 
-Here is an example usage to generate a Ruby client:
+Ruby 클라이언트 생성 예시:
 ```sh
 openapi-generator generate -i https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml -g ruby -o /tmp/test/
 ```
 
-To reinstall with the latest master, run `brew uninstall openapi-generator && brew install --HEAD openapi-generator`
+최신 master로 재설치하려면 `brew uninstall openapi-generator && brew install --HEAD openapi-generator`를 실행하세요.
 
-To install OpenJDK (pre-requisites), please run
+OpenJDK(필수)를 설치하려면 아래 명령어를 실행하세요:
 ```sh
 brew tap AdoptOpenJDK/openjdk
 brew install --cask adoptopenjdk11
 export JAVA_HOME=`/usr/libexec/java_home -v 1.11`
 ```
 
-or download installer via https://adoptium.net/
+또는 https://adoptium.net/ 에서 설치 프로그램을 다운로드할 수 있습니다.
 
-To install Maven (optional), please run
+Maven(선택 사항)을 설치하려면 아래 명령어를 실행하세요:
 ```sh
 brew install maven
 ```
@@ -544,13 +544,13 @@ pip install openapi-generator-cli[jdk4py]
 
 자세한 내용은 [openapi-generator-pip](https://github.com/openAPITools/openapi-generator-pip) 참고
 
-### [1.9 - 런처 스크립트](#table-of-contents)
+### [1.9 - 런처 스크립트](#목차)
 
 수동으로 JAR 파일을 다운로드하면 최신 릴리즈 버전으로 자동 업데이트되지 않는 단점이 있습니다.
 이 문제를 해결하기 위해 [bin/utils/openapi-generator.cli.sh](./bin/utils/openapi-generator-cli.sh) 위치에 Bash 런처 스크립트가 제공됩니다.
 
 런처 스크립트 설치 방법:
-스크립트 내용을 복사하여 PATH에 포함된 디렉토리에 저장하고, 실행 권한을 부여하세요.
+스크립트 내용을 PATH에 포함된 디렉터리에 복사하고 실행 권한을 부여하세요.
 
 설치 예시 (※ 외부에서 curl로 받은 스크립트는 반드시 내용을 확인 후 실행하세요):
 
@@ -561,32 +561,31 @@ chmod u+x ~/bin/openapitools/openapi-generator-cli
 export PATH=$PATH:~/bin/openapitools/
 ```
 
-Now, `openapi-generator-cli` is "installed". On invocation, it will query the GitHub repository for the most recently released version. If this matches the last downloaded jar,
-it will execute as normal. If a newer version is found, the script will download the latest release and execute it.
+이제 `openapi-generator-cli`가 "설치"되었습니다. 실행 시, GitHub 저장소에서 최신 릴리즈 버전을 확인합니다. 마지막으로 다운로드한 jar와 버전이 같으면 정상적으로 실행되고, 더 최신 버전이 있으면 스크립트가 최신 릴리즈를 다운로드하여 실행합니다.
 
-If you need to invoke an older version of the generator, you can define the variable `OPENAPI_GENERATOR_VERSION` either ad hoc or globally. You can export this variable if you'd like to persist a specific release version.
+이전 버전의 generator를 사용해야 한다면, `OPENAPI_GENERATOR_VERSION` 변수를 일시적으로 또는 전역으로 지정할 수 있습니다. 특정 릴리즈 버전을 계속 사용하고 싶다면 이 변수를 export 하세요.
 
-Examples:
+예시:
 
 ```
-# Execute latest released openapi-generator-cli
+# 최신 릴리즈된 openapi-generator-cli 실행
 openapi-generator-cli version
 
-# Execute version 4.1.0 for the current invocation, regardless of the latest released version
+# 최신 버전과 상관없이, 현재 실행에서 4.1.0 버전 사용
 OPENAPI_GENERATOR_VERSION=4.1.0 openapi-generator-cli version
 
-# Execute version 4.1.0-SNAPSHOT for the current invocation
+# 현재 실행에서 4.1.0-SNAPSHOT 버전 사용
 OPENAPI_GENERATOR_VERSION=4.1.0-SNAPSHOT openapi-generator-cli version
 
-# Execute version 4.0.2 for every invocation in the current shell session
+# 현재 셸 세션에서 모든 실행에 4.0.2 버전 사용
 export OPENAPI_GENERATOR_VERSION=4.0.2
-openapi-generator-cli version # is 4.0.2
-openapi-generator-cli version # is also 4.0.2
+openapi-generator-cli version # 4.0.2가 실행됨
+openapi-generator-cli version # 역시 4.0.2가 실행됨
 
-# To "install" a specific version, set the variable in .bashrc/.bash_profile
+# 특정 버전을 "설치"하려면, .bashrc/.bash_profile에 변수를 설정하세요
 echo "export OPENAPI_GENERATOR_VERSION=4.0.2" >> ~/.bashrc
 source ~/.bashrc
-openapi-generator-cli version # is always 4.0.2, unless any of the above overrides are done ad hoc
+openapi-generator-cli version # 위에서 일시적으로 오버라이드하지 않는 한 항상 4.0.2가 실행됨
 ```
 
 ## [2 - Getting Started](#table-of-contents)
