@@ -94,7 +94,7 @@ OpenAPI 2.0과 3.0 모두 지원하며, 다양한 언어와 프레임워크를 �
     - [창립 멤버(알파벳순)](#창립-멤버알파벳순)
 - [7 - 라이선스](#7---라이선스)
 
-## Sponsors
+## 스폰서
 
 OpenAPI Generator가 업무에 도움이 되었다면, 회사에 [스폰서가 되어](https://opencollective.com/openapi_generator) 오픈소스 프로젝트를 지원해달라고 요청해보세요.
 개인적으로도 [후원자(Backer)가 되어](https://opencollective.com/openapi_generator) 프로젝트를 지원할 수 있습니다.
@@ -590,7 +590,7 @@ openapi-generator-cli version # 위에서 일시적으로 오버라이드하지 
 
 ## [2 - Getting Started](#table-of-contents)
 
-To generate a PHP client for [petstore.yaml](https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml), please run the following
+[petstore.yaml](https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml) 파일로 PHP 클라이언트를 생성하려면 아래 명령어를 실행하세요.
 ```sh
 git clone https://github.com/openapitools/openapi-generator
 cd openapi-generator
